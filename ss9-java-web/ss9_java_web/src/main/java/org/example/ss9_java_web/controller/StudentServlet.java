@@ -1,5 +1,6 @@
 package org.example.ss9_java_web.controller;
 
+
 import org.example.ss9_java_web.model.Student;
 import org.example.ss9_java_web.service.IStudentService;
 import org.example.ss9_java_web.service.StudentServiceImpl;
@@ -11,20 +12,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @WebServlet(name = "StudentServlet", value = "/student-servlet")
 
 public class StudentServlet extends HttpServlet {
-    private IStudentService iStudentService = new StudentServiceImpl();
-    private static final List<Student> studentList = new ArrayList<>();
-
-    static {
-        studentList.add(new Student("Khoa", "khoa.huynh", "c0324m4", 9));
-        studentList.add(new Student("Thuong", "thuong.kim", "c0324m4", 8));
-        studentList.add(new Student("Viet", "viet.tam", "c0324m4", 7));
-    }
+    private final IStudentService iStudentService = new StudentServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -71,6 +64,33 @@ public class StudentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String action = request.getParameter("action");
+        if (action == null) {
+            action = "";
+        }
+        switch (action) {
+            case "create":
+                addNewStudent(request, response);
+                break;
+            case "edit":
+                showUpdateForm(request, response);
+                break;
+            case "delete":
+                break;
+            default:
+                findAll(request, response);
+        }
 
+        findAll(request, response);
     }
+
+    private void addNewStudent(HttpServletRequest request, HttpServletResponse response) {
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        String className = request.getParameter("className");
+        double point = Double.parseDouble(request.getParameter("point"));
+        Student student = new Student(name, email, className, point);
+        iStudentService.addNewStudent(student);
+    }
+
 }

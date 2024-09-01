@@ -7,9 +7,15 @@ import org.example.ss9_java_web.repository.student_repository.StudentRepoImpl;
 import java.util.List;
 
 public class StudentServiceImpl implements IStudentService{
-    private IStudentRepo iStudentRepo = new StudentRepoImpl();
+    private final IStudentRepo iStudentRepo = new StudentRepoImpl();
+
     @Override
     public List<Student> findAll() {
         return iStudentRepo.findAll();
+    }
+
+    @Override
+    public void addNewStudent(Student student) {
+        iStudentRepo.addNewStudent(student);
     }
 }

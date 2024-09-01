@@ -10,6 +10,7 @@
 <table border="1px">
     <thead>
         <tr>
+            <td>ID</td>
             <td>Tên</td>
             <td>Email</td>
             <td>Điểm</td>
@@ -22,6 +23,7 @@
     <tbody>
     <c:forEach items="${studentList}" var="student">
         <tr>
+            <td>${student.id}</td>
             <td>${student.name}</td>
             <td>${student.email}</td>
             <td>${student.point}</td>
@@ -35,6 +37,9 @@
                     </c:when>
                     <c:when test="${student.point > 6.9}">
                         Loại Trung binh`
+                    </c:when>
+                    <c:when test="${student.point <6.9}">
+                        Yếu
                     </c:when>
                 </c:choose>
             </td>

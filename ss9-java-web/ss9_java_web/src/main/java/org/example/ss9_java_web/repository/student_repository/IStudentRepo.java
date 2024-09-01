@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface IStudentRepo {
     List<Student> findAll();
+    void addNewStudent(Student student);
 }

@@ -1,6 +1,7 @@
 package org.example.ss9_java_web.model;
 
 public class Student {
+    private int id;
     private String name;
     private String email;
     private String className;
@@ -13,10 +14,17 @@ public class Student {
         this.point = point;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public double getPoint() {
         return point;
     }
-
     public void setPoint(double point) {
         this.point = point;
     }

@@ -12,5 +12,13 @@
 </head>
 <body>
 Thêm mới học viên
+<form action="?action=create" method="post">
+    Tên: <input type="text" name="name"> <br>
+    Email: <input type="text" name="email">  <br>
+    Lớp: <input type="text" name="className">  <br>
+    Điểm: <input type="number" name="point"> <br>
+    <input type="submit" value="Thêm mới">
+
+</form>
 </body>
 </html>
