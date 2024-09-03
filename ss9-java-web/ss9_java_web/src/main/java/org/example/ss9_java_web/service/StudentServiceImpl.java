@@ -18,4 +18,19 @@ public class StudentServiceImpl implements IStudentService{
     public void addNewStudent(Student student) {
         iStudentRepo.addNewStudent(student);
     }
+
+    @Override
+    public void deleteStudent(int id) {
+        iStudentRepo.deleteStudent(id);
+    }
+
+    @Override
+    public List<Student> getStudentById(int id) {
+        return iStudentRepo.getStudentById(id);
+    }
+
+    @Override
+    public void save(Student student) {
+        iStudentRepo.save(student);
+    }
 }

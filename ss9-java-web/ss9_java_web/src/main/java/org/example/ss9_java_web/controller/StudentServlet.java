@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 
 @WebServlet(name = "StudentServlet", value = "/student-servlet")
@@ -34,6 +35,7 @@ public class StudentServlet extends HttpServlet {
                 showUpdateForm(request, response);
                 break;
             case "delete":
+                deleteStudent(request,response);
                 break;
             default:
                 findAll(request, response);
@@ -44,8 +46,20 @@ public class StudentServlet extends HttpServlet {
 
     private void showUpdateForm(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("update.jsp");
-        requestDispatcher.forward(request, response);
+        int id = Integer.parseInt(request.getParameter("sid"));
+
+        // Gọi phương thức getStudentById và lưu trữ kết quả
+        List<Student> studentList = iStudentService.getStudentById(id);
+
+        // Nếu danh sách không rỗng, lấy phần tử đầu tiên (vì ID là duy nhất)
+        if (!studentList.isEmpty()) {
+            Student s = studentList.get(0);
+            request.setAttribute("st", s);
+        }
+
+        // Điều hướng đến trang JSP hiển thị chi tiết sinh viên
+        RequestDispatcher dispatcher = request.getRequestDispatcher("update.jsp");
+        dispatcher.forward(request, response);
     }
 
     private void showCreateForm(HttpServletRequest request, HttpServletResponse response)
@@ -60,6 +74,10 @@ public class StudentServlet extends HttpServlet {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("list.jsp");
         requestDispatcher.forward(request, response);
     }
+    private void deleteStudent(HttpServletRequest request, HttpServletResponse response){
+        int id = Integer.parseInt(request.getParameter("sid"));
+        iStudentService.deleteStudent(id);
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -73,7 +91,7 @@ public class StudentServlet extends HttpServlet {
                 addNewStudent(request, response);
                 break;
             case "edit":
-                showUpdateForm(request, response);
+                save(request, response);
                 break;
             case "delete":
                 break;
@@ -85,12 +103,24 @@ public class StudentServlet extends HttpServlet {
     }
 
     private void addNewStudent(HttpServletRequest request, HttpServletResponse response) {
+//        int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
-        String email = request.getParameter("email");
         String className = request.getParameter("className");
+        int gender = Integer.parseInt(request.getParameter("gender"));
         double point = Double.parseDouble(request.getParameter("point"));
-        Student student = new Student(name, email, className, point);
+        Student student = new Student(name, className, gender, point);
         iStudentService.addNewStudent(student);
     }
+    private void save(HttpServletRequest request, HttpServletResponse response){
+        int id = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("name");
+        String className = request.getParameter("className");
+        int gender = Integer.parseInt(request.getParameter("gender"));
+        double point = Double.parseDouble(request.getParameter("point"));
+        Student student = new Student(id, name, className, gender, point);
+        iStudentService.save(student);
+
+    }
+
 
 }

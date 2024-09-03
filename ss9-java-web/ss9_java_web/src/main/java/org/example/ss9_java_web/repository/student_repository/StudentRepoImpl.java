@@ -19,44 +19,116 @@ public class StudentRepoImpl implements IStudentRepo {
     }
     private static final String FIND_ALL = "select * from student";
     private static final String INSERT_STUDENT =
-            "insert into student(student_name,student_email,student_classname,student_point)" +
+            "insert into student(name, classname, gender, point)\n" +
                     "values(?,?,?,?)";
+    private static final String DELETE_STUDENT =
+            "delete from student\n" +
+                    "where id = ?;" ;
+    private static final String GETID_STUDENT =
+            "select * from student\n" +
+                    "where id = ?;";
+    private static final String UPDATE_STUDENT =
+            "update student\n" +
+                    "set name = ?,\n" +
+                    "classname = ?,\n" +
+                    "gender = ?,\n" +
+                    "point = ?\n" +
+                    "where id = ? ";
+    private static final String CALL_INSERT =
+            "call insert_student(?,?,?,?)" ;
 
 
     @Override
     public List<Student> findAll() {
         Connection connection = baseRepository.getConnection();
-        List<Student> students = new ArrayList<>();
+        List<Student> list = new ArrayList<>();
         try{
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(FIND_ALL);
             while (resultSet.next()){
-//                int id = resultSet.getInt("student_id");
-                String name = resultSet.getString("student_name");
-                String email = resultSet.getString("student_email");
-                String className = resultSet.getString("student_classname");
-                double point = resultSet.getDouble("student_point");
-                students.add(new Student( name, email, className, point));
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String className = resultSet.getString("classname");
+                int gender = resultSet.getInt("gender");
+                double point = resultSet.getDouble("point");
+                list.add(new Student(id, name, className, gender, point));
             }
         }catch (SQLException e){
             System.err.println(e.getMessage());
         }
-        return students;
+        return list;
     }
 
     @Override
     public void addNewStudent(Student student) {
         Connection connection = baseRepository.getConnection();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(INSERT_STUDENT);
-            preparedStatement.setString(1, student.getName());
-            preparedStatement.setString(2, student.getEmail());
-            preparedStatement.setString(3, student.getClassName());
-            preparedStatement.setDouble(4, student.getPoint());
-            preparedStatement.executeUpdate();
+            PreparedStatement ps = connection.prepareStatement(INSERT_STUDENT);
+            ps.setString(1, student.getName());
+            ps.setString(2, student.getClassName());
+            ps.setInt(3, student.getGender());
+            ps.setDouble(4, student.getPoint());
+            ps.executeUpdate();
+
+//            CallableStatement callableStatement = connection.prepareCall(CALL_INSERT);
+//            callableStatement.setString(1, student.getName());
+//            callableStatement.setString(2, student.getEmail());
+//            callableStatement.setString(3, student.getClassName());
+//            callableStatement.setDouble(4, student.getPoint());
+//            callableStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
 
+    @Override
+    public void deleteStudent(int id) {
+        Connection connection = baseRepository.getConnection();
+        try {
+            PreparedStatement ps = connection.prepareStatement(DELETE_STUDENT);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        }catch (Exception e){
+            System.err.println(e.getMessage());
+        }
+    }
+
+    @Override
+    public List<Student> getStudentById(int id) {
+        Connection connection = baseRepository.getConnection();
+        List<Student> listId = new ArrayList<>();
+        try {
+            PreparedStatement ps = connection.prepareStatement(GETID_STUDENT);
+            ps.setInt(1, id);
+            ResultSet resultSet = ps.executeQuery();
+
+            while (resultSet.next()){
+                int studentId = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String className = resultSet.getString("classname");
+                int gender = resultSet.getInt("gender");
+                double point = resultSet.getDouble("point");
+                listId.add(new Student(id, name, className, gender, point));
+            }
+        }catch (SQLException e){
+            System.err.println(e.getMessage());
+        }
+        return listId;
+    }
+
+    @Override
+    public void save(Student student) {
+        Connection connection = baseRepository.getConnection();
+        try {
+            PreparedStatement ps = connection.prepareStatement(UPDATE_STUDENT);
+            ps.setString(1, student.getName());
+            ps.setString(2, student.getClassName());
+            ps.setInt(3, student.getGender());
+            ps.setDouble(4, student.getPoint());
+            ps.setInt(5, student.getId());
+            ps.executeUpdate();
+        }catch (SQLException e){
+            System.err.println(e.getMessage());
+        }
     }
 }

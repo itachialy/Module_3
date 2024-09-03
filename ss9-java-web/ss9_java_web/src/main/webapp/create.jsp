@@ -14,8 +14,9 @@
 Thêm mới học viên
 <form action="?action=create" method="post">
     Tên: <input type="text" name="name"> <br>
-    Email: <input type="text" name="email">  <br>
     Lớp: <input type="text" name="className">  <br>
+    Giới tính : <input type="radio" name="gender" value="1">Nam
+    <input type="radio" name="gender" value="0">Nữ  <br>
     Điểm: <input type="number" name="point"> <br>
     <input type="submit" value="Thêm mới">
 

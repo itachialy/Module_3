@@ -3,15 +3,38 @@ package org.example.ss9_java_web.model;
 public class Student {
     private int id;
     private String name;
-    private String email;
     private String className;
+    private int gender;
     private double point;
 
-    public Student(String name, String email, String className, double point) {
+    public Student(int id, String name, String className, int gender, double point) {
+        this.id = id;
         this.name = name;
-        this.email = email;
         this.className = className;
+        this.gender = gender;
         this.point = point;
+    }
+
+    public Student(String name, String className, int gender, double point) {
+        this.name = name;
+        this.className = className;
+        this.gender = gender;
+        this.point = point;
+    }
+    public Student(String name, String className, int gender, double point, int id) {
+        this.id = id;
+        this.name = name;
+        this.className = className;
+        this.gender = gender;
+        this.point = point;
+    }
+
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
     }
 
     public int getId() {
@@ -35,14 +58,6 @@ public class Student {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public String getClassName() {

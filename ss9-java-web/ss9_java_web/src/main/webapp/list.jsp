@@ -12,46 +12,64 @@
         <tr>
             <td>ID</td>
             <td>Tên</td>
-            <td>Email</td>
+            <td>Lớp</td>
+            <td>Giới tính</td>
             <td>Điểm</td>
             <td>Xếp loại</td>
-            <td>Lớp</td>
             <td>Update</td>
+            <td>Delete</td>
         </tr>
     </thead>
 
     <tbody>
-    <c:forEach items="${studentList}" var="student">
+    <c:forEach items="${studentList}" var="s">
         <tr>
-            <td>${student.id}</td>
-            <td>${student.name}</td>
-            <td>${student.email}</td>
-            <td>${student.point}</td>
+            <td>${s.id}</td>
+            <td>${s.name}</td>
+            <td>${s.className}</td>
+            <td>
+                <c:if test="${s.gender == 1}">
+                Nam
+                </c:if>
+                <c:if test="${s.gender == 0}">
+                    Nữ
+                </c:if>
+            </td>
+            <td>${s.point}</td>
             <td>
                 <c:choose>
-                    <c:when test="${student.point > 8.9}">
+                    <c:when test="${s.point > 8.9}">
                         Loại giỏi
                     </c:when>
-                    <c:when test="${student.point > 7.9}">
+                    <c:when test="${s.point > 7.9}">
                         Loại khá
                     </c:when>
-                    <c:when test="${student.point > 6.9}">
+                    <c:when test="${s.point > 6.9}">
                         Loại Trung binh`
                     </c:when>
-                    <c:when test="${student.point <6.9}">
+                    <c:when test="${s.point <6.9}">
                         Yếu
                     </c:when>
                 </c:choose>
             </td>
-            <td>${student.className}</td>
             <td>
-                <a href="?action=edit">Chỉnh sửa</a>
+                <a href="?action=edit&sid=${s.id}">Chỉnh sửa</a>
+            </td>
+            <td>
+                <a href="#" onclick="showMess(${s.id})">Xóa</a>
             </td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
-
+<script>
+    function showMess(id){
+        let option = confirm("Are you sure ??? ");
+        if (option === true){
+            window.location.href = "?action=delete&sid=" + id;
+        }
+    }
+</script>
 
 </body>
 </html>
