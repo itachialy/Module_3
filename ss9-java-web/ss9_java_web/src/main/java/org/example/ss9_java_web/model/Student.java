@@ -21,13 +21,6 @@ public class Student {
         this.gender = gender;
         this.point = point;
     }
-    public Student(String name, String className, int gender, double point, int id) {
-        this.id = id;
-        this.name = name;
-        this.className = className;
-        this.gender = gender;
-        this.point = point;
-    }
 
     public int getGender() {
         return gender;

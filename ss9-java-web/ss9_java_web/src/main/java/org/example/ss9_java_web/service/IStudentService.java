@@ -10,6 +10,4 @@ public interface IStudentService {
     void deleteStudent(int id);
     List<Student> getStudentById( int id);
     void save(Student student);
-
-
 }

@@ -8,19 +8,19 @@
 
 </head>
 <body>
-<h1>Danh sách học viên C0324m4</h1>
-<a href="?action=create">Thêm mới học viên</a>
+<h1 style="font-family: Serif, sans-serif">Danh sách học viên C0324m4</h1>
+
 <table border="1px">
     <thead>
         <tr>
-            <td>ID</td>
-            <td>Tên</td>
-            <td>Lớp</td>
-            <td>Giới tính</td>
-            <td>Điểm</td>
-            <td>Xếp loại</td>
-            <td>Update</td>
-            <td>Delete</td>
+            <th>ID</th>
+            <th>Tên</th>
+            <th>Lớp</th>
+            <th>Giới tính</th>
+            <th>Điểm</th>
+            <th>Xếp loại</th>
+            <th>Update</th>
+            <th>Delete</th>
         </tr>
     </thead>
 
@@ -65,6 +65,9 @@
     </c:forEach>
     </tbody>
 </table>
+<div style="text-align: center;">
+    <a href="?action=create">Thêm mới học viên</a>
+</div>
 <script>
     function showMess(id){
         let option = confirm("Are you sure ??? ");
@@ -73,6 +76,7 @@
         }
     }
 </script>
+
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/list.css">
 
 </body>

@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.List;
 
 
-@WebServlet(name = "StudentServlet", value = "/student-servlet")
+@WebServlet(name = "StudentServlet", value = "")
 
 public class StudentServlet extends HttpServlet {
     private final IStudentService iStudentService = new StudentServiceImpl();
@@ -103,7 +103,6 @@ public class StudentServlet extends HttpServlet {
     }
 
     private void addNewStudent(HttpServletRequest request, HttpServletResponse response) {
-//        int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
         String className = request.getParameter("className");
         int gender = Integer.parseInt(request.getParameter("gender"));
@@ -119,8 +118,5 @@ public class StudentServlet extends HttpServlet {
         double point = Double.parseDouble(request.getParameter("point"));
         Student student = new Student(id, name, className, gender, point);
         iStudentService.save(student);
-
     }
-
-
 }
