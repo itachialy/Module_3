@@ -1,18 +1,16 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: KAIs
-  Date: 8/31/2024
-  Time: 5:12 PM
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm mới học viên</title>
+
 </head>
 <body>
-Thêm mới học viên
+
 <form action="?action=create" method="post">
+    <h1>Thêm mới học viên ở đây</h1>
     Tên: <input type="text" name="name"> <br>
     Lớp: <input type="text" name="className">  <br>
     Giới tính : <input type="radio" name="gender" value="1">Nam
@@ -21,5 +19,7 @@ Thêm mới học viên
     <input type="submit" value="Thêm mới">
 
 </form>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/create.css">
+
 </body>
 </html>

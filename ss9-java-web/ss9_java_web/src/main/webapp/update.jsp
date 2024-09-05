@@ -1,12 +1,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chỉnh sửa thông tin học viên</title>
+
 </head>
 <body>
-Form chỉnh sửa ở đây nhé
+
 
 <form action="?action=edit" method="post">
+    <h1>Form chỉnh sửa ở đây nhé</h1>
     ID: <input value="${st.id}" type="number" name="id" readonly> <br>
     Tên: <input value="${st.name}" type="text" name="name"> <br>
     Lớp: <input value="${st.className}" type="text" name="className">  <br>
@@ -16,5 +20,6 @@ Form chỉnh sửa ở đây nhé
     <input type="submit" value="Cập nhật">
 
 </form>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/update.css">
 </body>
 </html>

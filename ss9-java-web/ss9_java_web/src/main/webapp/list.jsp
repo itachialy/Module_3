@@ -2,7 +2,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Danh sách lớp</title>
+
 </head>
 <body>
 <h1>Danh sách học viên C0324m4</h1>
@@ -70,6 +73,7 @@
         }
     }
 </script>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/list.css">
 
 </body>
 </html>

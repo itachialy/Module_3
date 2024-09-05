@@ -108,7 +108,7 @@ public class StudentRepoImpl implements IStudentRepo {
                 String className = resultSet.getString("classname");
                 int gender = resultSet.getInt("gender");
                 double point = resultSet.getDouble("point");
-                listId.add(new Student(id, name, className, gender, point));
+                listId.add(new Student(studentId, name, className, gender, point));
             }
         }catch (SQLException e){
             System.err.println(e.getMessage());
