@@ -1,20 +1,20 @@
 package org.example.case_study.model;
 
 public class Class {
-    private int id;
+    private int classId;
     private String className;
 
     public Class(int id, String className) {
-        this.id = id;
+        this.classId = id;
         this.className = className;
     }
 
-    public int getId() {
-        return id;
+    public int getClassId() {
+        return classId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setClassId(int classId) {
+        this.classId = classId;
     }
 
     public String getClassName() {

@@ -4,6 +4,9 @@ public class Account {
     String user ;
     String pass ;
 
+    public Account() {
+    }
+
     public Account(String user, String pass) {
         this.user = user;
         this.pass = pass;

@@ -1,5 +1,7 @@
 package org.example.case_study.repository.studentRepo;
 
+import org.example.case_study.model.Account;
+import org.example.case_study.model.Class;
 import org.example.case_study.model.Student;
 import org.example.case_study.repository.BaseRepository;
 
@@ -10,7 +12,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Stack;
 
-public class StudentRepoImpl implements IStudentRepo{
+public class StudentRepoImpl implements IStudentRepo {
     private final BaseRepository baseRepository;
 
     {
@@ -20,13 +22,18 @@ public class StudentRepoImpl implements IStudentRepo{
             throw new RuntimeException(e);
         }
     }
-    private static final String FIND_ALL = "SELECT * FROM student";
+
+    //    private static final String FIND_ALL = "SELECT * FROM student";
+    private static final String FIND_ALL = "select s.student_id, s.student_name, s.student_birthday, s.student_gender,\n" +
+            "s.student_email, s.student_point, c.class_id, c.class_name  from student s\n" +
+            "inner join class c on s.class_id = c.class_id\n" +
+            "ORDER BY s.student_id ASC";
     private static final String INSERT_STUDENT =
             "insert into student(student_name, student_birthday, student_gender,student_email, student_point)\n" +
                     "values(?,?,?,?,?)";
     private static final String DELETE_STUDENT =
             "delete from student\n" +
-                    "where student_id = ?" ;
+                    "where student_id = ?";
     private static final String GETID_STUDENT =
             "select * from student\n" +
                     "where student_id = ?;";
@@ -47,15 +54,17 @@ public class StudentRepoImpl implements IStudentRepo{
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(FIND_ALL);
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 int id = resultSet.getInt("student_id");
                 String name = resultSet.getString("student_name");
                 LocalDate birthday = resultSet.getDate("student_birthday").toLocalDate();
                 int gender = resultSet.getInt("student_gender");
                 String email = resultSet.getString("student_email");
                 double point = resultSet.getDouble("student_point");
-//                int classId = resultSet.getInt("class_id");
-                Student student = new Student(id, name, birthday, gender, email, point);
+                int classId = resultSet.getInt("class_id");
+                String className = resultSet.getString("class_name");
+                Class clazz = new Class(classId, className);
+                Student student = new Student(id, name, birthday, gender, email, point, clazz);
                 studentList.add(student);
             }
         } catch (SQLException e) {
@@ -87,7 +96,7 @@ public class StudentRepoImpl implements IStudentRepo{
             PreparedStatement ps = connection.prepareStatement(DELETE_STUDENT);
             ps.setInt(1, id);
             ps.executeUpdate();
-        }catch (Exception e){
+        } catch (Exception e) {
             System.err.println(e.getMessage());
         }
     }
@@ -100,7 +109,7 @@ public class StudentRepoImpl implements IStudentRepo{
             PreparedStatement ps = connection.prepareStatement(GETID_STUDENT);
             ps.setInt(1, id);
             ResultSet resultSet = ps.executeQuery();
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 int id1 = resultSet.getInt("student_id");
                 String name = resultSet.getString("student_name");
                 LocalDate birthday = resultSet.getDate("student_birthday").toLocalDate();
@@ -109,7 +118,7 @@ public class StudentRepoImpl implements IStudentRepo{
                 double point = resultSet.getDouble("student_point");
                 listId.add(new Student(id1, name, birthday, gender, email, point));
             }
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
         return listId;
@@ -127,8 +136,32 @@ public class StudentRepoImpl implements IStudentRepo{
             ps.setDouble(5, student.getPoint());
             ps.setInt(6, student.getId());
             ps.executeUpdate();
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
     }
+
+    private static final String CHECK = "select * from jame_account\n" +
+            "where user_name = ? and password = ?";
+
+    @Override
+    public Account checkLogin(String user, String pass) {
+        Connection connection = baseRepository.getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(CHECK);
+            preparedStatement.setString(1, user);
+            preparedStatement.setString(2, pass);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Account a = new Account(resultSet.getString(1), resultSet.getString(2));
+                return a;
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+
+        }
+        return null;
+
     }
+}

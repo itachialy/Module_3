@@ -17,6 +17,7 @@
         <th>Email</th>
         <th>Điểm</th>
         <th>Xếp loại</th>
+        <th>Lớp</th>
         <th>Update</th>
         <th>Delete</th>
     </tr>
@@ -54,6 +55,7 @@
                     </c:when>
                 </c:choose>
             </td>
+            <td>${s.clazz.className}</td>
             <td>
                 <a href="?action=edit&sid=${s.id}">Chỉnh sửa</a>
 

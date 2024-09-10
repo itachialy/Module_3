@@ -10,9 +10,9 @@ public class Student {
     private String email;
     private double point;
     private String account;
-    private int classId;
+    private Class clazz;
 
-    public Student(int id, String name, LocalDate birthday, int gender, String email, double point, String account, int classId) {
+    public Student(int id, String name, LocalDate birthday, int gender, String email, double point, String account, Class classId) {
         this.id = id;
         this.name = name;
         this.birthday = birthday;
@@ -20,26 +20,36 @@ public class Student {
         this.point = point;
         this.email = email;
         this.account = account;
-        this.classId = classId;
+        this.clazz = classId;
     }
 
-    public Student(String name, LocalDate birthday, int gender, String email, double point, String account, int classId) {
+    public Student(String name, LocalDate birthday, int gender, String email, double point, String account, Class clazz) {
         this.name = name;
         this.birthday = birthday;
         this.gender = gender;
         this.point = point;
         this.email = email;
         this.account = account;
-        this.classId = classId;
+        this.clazz = clazz;
     }
 
-    public Student(String name, LocalDate birthday, int gender, String email, double point, int classId) {
+    public Student(String name, LocalDate birthday, int gender, String email, double point, Class clazz) {
         this.name = name;
         this.birthday = birthday;
         this.gender = gender;
         this.point = point;
         this.email = email;
-        this.classId = classId;
+        this.clazz = clazz;
+    }
+
+    public Student(int id, String name, LocalDate birthday, int gender, String email, double point, Class clazz) {
+        this.id = id;
+        this.name = name;
+        this.birthday = birthday;
+        this.gender = gender;
+        this.email = email;
+        this.point = point;
+        this.clazz = clazz;
     }
 
     public Student(int id, String name, LocalDate birthday, int gender, String email, double point) {
@@ -50,6 +60,7 @@ public class Student {
         this.email = email;
         this.point = point;
     }
+
     public Student(String name, LocalDate birthday, int gender, String email, double point) {
         this.name = name;
         this.birthday = birthday;
@@ -114,12 +125,12 @@ public class Student {
         this.account = account;
     }
 
-    public int getClassId() {
-        return classId;
+    public Class getClazz() {
+        return clazz;
     }
 
-    public void setClassId(int classId) {
-        this.classId = classId;
+    public void setClazz(Class clazz) {
+        this.clazz = clazz;
     }
 
 

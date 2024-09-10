@@ -1,5 +1,6 @@
 package org.example.case_study.service.studentService;
 
+import org.example.case_study.model.Account;
 import org.example.case_study.model.Student;
 
 import java.util.List;
@@ -10,4 +11,6 @@ public interface IStudentService {
     void deleteStudent(int id);
     List<Student> getStudentById( int id);
     void save(Student student);
+    Account checkLogin(String user, String pass);
+
 }

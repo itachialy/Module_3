@@ -8,6 +8,7 @@
 <h1><%= "CODEGYM" %>
 </h1>
 <br/>
+<a href="login.jsp"> vào trang đăng nhập</a> <br>
 <a href="student-servlet">Danh sách học viên</a> <br>
 <a href="teacher-servlet">Danh sách giảng viên</a>
 </body>

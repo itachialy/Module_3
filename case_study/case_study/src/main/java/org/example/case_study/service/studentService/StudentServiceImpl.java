@@ -1,5 +1,6 @@
 package org.example.case_study.service.studentService;
 
+import org.example.case_study.model.Account;
 import org.example.case_study.model.Student;
 import org.example.case_study.repository.studentRepo.IStudentRepo;
 import org.example.case_study.repository.studentRepo.StudentRepoImpl;
@@ -31,5 +32,10 @@ public class StudentServiceImpl implements IStudentService{
     @Override
     public void save(Student student) {
         iStudentRepo.save(student);
+    }
+
+    @Override
+    public Account checkLogin(String user, String pass) {
+        return iStudentRepo.checkLogin(user, pass);
     }
 }

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "CustomerServlet", value = "/customer-servlet")
+@WebServlet(name = "CustomerServlet", value = "/")
 public class CustomerServlet extends HttpServlet {
     private final CustomerService customerService = new CustomerServiceImpl();
 

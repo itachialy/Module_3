@@ -21,6 +21,5 @@
     <input type="submit" value="Cập nhật">
 
 </form>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/update.css">
 </body>
 </html>
